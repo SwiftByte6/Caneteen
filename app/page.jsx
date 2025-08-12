@@ -10,10 +10,41 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user already logged in on mount
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    async function checkSessionAndRedirect() {
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+
+        if (session?.user) {
+          // Fetch role from profile
+          const { data: profile, error } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single()
+
+          if (!error && profile) {
+            if (profile.role === 'admin') {
+              router.replace('/admin/dashboard')
+            } else {
+              router.replace('/user/dashboard')
+            }
+          } else {
+            // If error or no profile, stop loading so user can login or handle error
+            setLoading(false)
+          }
+        } else {
+          setLoading(false)
+        }
+      } catch (error) {
+        console.error('Error checking session:', error)
+        setLoading(false)
+      }
+    }
+
+    checkSessionAndRedirect()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
-        // Fetch role from profile
         const { data: profile, error } = await supabase
           .from('profiles')
           .select('role')
@@ -28,28 +59,8 @@ export default function LoginPage() {
           }
         }
       } else {
-        setLoading(false) // Not logged in, show login form
-      }
-    })
-
-    // Also listen for login event (optional, you can keep your onAuthStateChange listener if you want)
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        const { data: profile, error } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', session.user.id)
-          .single()
-
-        if (!error && profile) {
-          if (profile.role === 'admin') {
-            router.replace('/admin/dashboard')
-          } else {
-            router.replace('/user/dashboard')
-          }
-        }
+        // When logged out, show login form
+        setLoading(false)
       }
     })
 
@@ -69,10 +80,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-900">
       <div className="w-full max-w-md rounded bg-gray-800 p-6">
-        <Auth
-          supabaseClient={supabase}
-          socialLayout="horizontal"
-        />
+        <Auth supabaseClient={supabase} socialLayout="horizontal" />
       </div>
     </div>
   )
