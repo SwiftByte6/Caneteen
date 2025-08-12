@@ -127,7 +127,7 @@ export default function CartPage() {
 
                 {/* Total price and remove */}
                 <div className="mt-4 md:mt-0 flex items-center justify-between w-full md:w-auto">
-                  <span className="font-semibold">{totalPrice.toFixed(2)}€</span>
+                  <span className="font-semibold">₹{totalPrice.toFixed(2)}</span>
                   <button
                     onClick={() => handleRemoveItem(item)}
                     aria-label="Remove item"
@@ -174,7 +174,7 @@ export default function CartPage() {
                   At 45 Glenridge Ave. Brooklyn, NY 11220
                 </div>
               </div>
-              <span className="ml-auto font-bold text-gray-800">9.90€</span>
+              <span className="ml-auto font-bold text-gray-800">₹9.90</span>
             </label>
           </div>
 
@@ -182,20 +182,20 @@ export default function CartPage() {
           <div className="md:w-1/2 bg-white p-6 rounded-xl shadow-lg text-gray-900">
             <div className="flex justify-between mb-3">
               <span className="font-semibold text-sm uppercase">Subtotal TTC</span>
-              <span className="font-semibold">{subtotal.toFixed(2)}€</span>
+              <span className="font-semibold">₹{subtotal.toFixed(2)}</span>
             </div>
             <div className="flex justify-between mb-3">
               <span className="font-semibold text-sm uppercase">Shipping</span>
               <span className="font-semibold">
-                {shippingMode === 'pickup' ? 'Free' : '9.90€'}
+                {shippingMode === 'pickup' ? 'Free' : '9.90₹'}
               </span>
             </div>
             <div className="border-t border-gray-300 mt-4 pt-4 flex justify-between font-extrabold text-xl">
               <span>Total</span>
-              <span>{total.toFixed(2)}€</span>
+              <span>₹{total.toFixed(2)}</span>
             </div>
             <button className="mt-6 w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition">
-              Checkout {total.toFixed(2)} €
+              Checkout ₹{total.toFixed(2)} 
             </button>
           </div>
         </div>
