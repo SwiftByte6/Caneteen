@@ -44,17 +44,44 @@ export default function AdminLiveOrders() {
   };
 
   return (
-    <div>
-      <h1>Live Orders (Admin)</h1>
-      {orders.map(o => (
-        <div key={o.id} style={{ border: '1px solid gray', margin: '10px', padding: '10px' }}>
-          <div>User: {o.user_id}</div>
-          <div>Total: ₹{o.total_amount}</div>
-          <div>Status: {o.status}</div>
-          <button onClick={() => updateStatus(o.id, 'pending')}>Pending</button>
-          <button onClick={() => updateStatus(o.id, 'success')}>Success</button>
+    <div className="p-6 bg-gray-100 min-h-screen">
+  <h1 className="text-3xl font-bold mb-6 text-gray-800">Live Orders (Admin)</h1>
+  
+  <div className="grid gap-4">
+    {orders.map(o => (
+      <div
+        key={o.id}
+        className="bg-white shadow-md rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="font-medium text-gray-700">User: <span className="text-gray-900">{o.user_id}</span></div>
+          <div className="font-medium text-gray-700">Total: <span className="text-gray-900">₹{o.total_amount}</span></div>
+          <div className={`font-semibold ${
+            o.status === 'pending' ? 'text-yellow-500' :
+            o.status === 'success' ? 'text-green-500' :
+            'text-red-500'
+          }`}>
+            Status: {o.status}
+          </div>
         </div>
-      ))}
-    </div>
+        <div className="flex gap-2 mt-4 sm:mt-0">
+          <button
+            onClick={() => updateStatus(o.id, 'pending')}
+            className="px-3 py-1 rounded-md bg-yellow-500 text-white hover:bg-yellow-600 transition"
+          >
+            Pending
+          </button>
+          <button
+            onClick={() => updateStatus(o.id, 'success')}
+            className="px-3 py-1 rounded-md bg-green-500 text-white hover:bg-green-600 transition"
+          >
+            Success
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
   );
 }
