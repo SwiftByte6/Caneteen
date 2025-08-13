@@ -3,9 +3,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiMinus, FiPlus, FiX, FiArrowLeft } from 'react-icons/fi';
 import { removeCart, updateQuantity } from '@/redux/slice';
+import { useRouter } from 'next/navigation';
 
 export default function CartPage() {
   const dispatch = useDispatch();
+  const router=useRouter();
   const cartItems = useSelector((state) => state.cart) || [];
   const [shippingMode, setShippingMode] = React.useState('pickup');
 
@@ -194,7 +196,9 @@ export default function CartPage() {
               <span>Total</span>
               <span>₹{total.toFixed(2)}</span>
             </div>
-            <button className="mt-6 w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition">
+            <button
+            onClick={()=>router.push('/user/checkout')}
+            className="mt-6 w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition">
               Checkout ₹{total.toFixed(2)} 
             </button>
           </div>

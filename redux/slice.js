@@ -29,8 +29,11 @@ const cartSlice = createSlice({
         });
       }
     },
+    cartClear:(state,action)=>{
+       return [] // ✅ clears the array correctly
+    }
   },
 });
 
-export const { removeCart, updateQuantity, addCart } = cartSlice.actions;
+export const { removeCart, updateQuantity, addCart,cartClear } = cartSlice.actions;
 export default cartSlice.reducer;
