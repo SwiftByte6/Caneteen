@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import SideBar from "@/components/SideBar";
 
 export const metadata = {
   title: "User Dashboard",
@@ -8,8 +9,8 @@ export const metadata = {
 
 export default function UserLayout({ children }) {
   return (
-      <main className="flex-1 p-8">
-        <Navbar/>
+      <main className="flex p-8">
+        <SideBar/>
         {children}
       </main>
 
