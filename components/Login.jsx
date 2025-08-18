@@ -3,16 +3,16 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div className="bg-[url('/Login/checksBack.png')] relative flex justify-center items-center bg-cover bg-center bg-no-repeat min-h-screen">
+    <div className="bg-[url('/Login/checksBack.png')] md:bg-white relative flex justify-center items-center bg-cover bg-center bg-no-repeat min-h-screen">
       
       {/* Decorative Image */}
-      <div className="absolute bottom-0 left-[calc(-25%)] sm:left-[calc(-15%)] z-1000">
+      <div className="absolute bottom-0 left-[calc(-30%)] sm:left-[calc(-15%)] z-1000">
         <Image
           src="/Login/cheif.png"
-          width={380}
-          height={380}
+          height={700}
+          width={700}
           alt="Decorative chef image"
-          className="object-contain sm:h-[300px]"
+          className="object-contain w-[100vw] h-[40vh]"
         />
       </div>
 
@@ -21,8 +21,7 @@ const Login = () => {
         
         {/* Heading */}
         <h1 
-        style={{ WebkitTextStroke: "1px black" }}
-        className="font-extrabold text-4xl text-center text-transparent bg-clip-text bg-gradient-to-b from-orange-600/60 to-white/100 mb-6">
+        className="font-extrabold text-5xl text-center   text-orange-500/90 mb-6">
           Login
         </h1>
 
