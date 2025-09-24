@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Auth } from '@supabase/auth-ui-react'
 import { supabase } from '@/lib/supabaseClient'
+import Login from '@/components/Login'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -78,9 +79,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-900">
-      <div className="w-full max-w-md rounded bg-gray-800 p-6">
-        <Auth supabaseClient={supabase} socialLayout="horizontal" />
+    <div className="flex min-h-screen bg-orange-400/50 items-center justify-center ">
+      <div className="w-full  rounded  bg-orange-400/50 ">
+        
+        <Login/>
       </div>
     </div>
   )

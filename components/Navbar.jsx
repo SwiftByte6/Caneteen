@@ -2,16 +2,20 @@
 import Link from "next/link";
 import { FiShoppingCart, FiUser, FiList, FiClock } from "react-icons/fi";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
 
+  const router=useRouter()
   const cartData=useSelector((state)=>state.cart)
   return (
     <header className="bg-indigo-700 text-white shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         
         {/* Left: Logo */}
-        <div className="flex items-center space-x-2">
+        <div
+        onClick={()=>router.push('/user/dashboard')}
+        className="flex items-center space-x-2">
           <div className="bg-white text-indigo-700 font-bold px-3 py-1 rounded">
             LOGO
           </div>
