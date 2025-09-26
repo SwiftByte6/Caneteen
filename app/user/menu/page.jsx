@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { addCart } from '@/redux/slice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import ButtonAnimation from '@/components/ButtonAnimation';
 
 
 const Page = () => {
@@ -152,44 +153,52 @@ const Page = () => {
       </div>
 
       {/* Menu Items */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 mt-10">
         {displayedData.length === 0 ? (
           <div className="col-span-full text-center text-gray-500 text-lg">
             No item found
           </div>
         ) : (
           displayedData.map((item, i) => (
-            <div key={i} className="h-[370px] w-[270px] bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+            <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition flex flex-col">
               {/* Image */}
               <div className="h-40 bg-gray-200 flex items-center justify-center">
                 <span className="text-gray-500">No Image</span>
               </div>
 
               {/* Content */}
-              <div className="p-4 flex flex-col justify-between h-[calc(350px-160px)]">
-                <div>
+              <div className="p-4 flex flex-col flex-grow">
+                <div className="flex-grow">
                   <h2 className="text-lg font-semibold text-gray-800">{item.name}</h2>
-                  <p className="text-sm text-gray-500">{item.description}</p>
+                  <p className="text-sm text-gray-500 line-clamp-2">{item.description}</p>
                   <p className="text-sm text-gray-400 mt-1">Category: {item.category}</p>
                   <p className="mt-2 font-bold text-green-600">₹{item.price}</p>
                 </div>
 
                 {/* Availability */}
-                <div className="mt-3">
+                <div className="mt-3 mb-3">
                   {item.available ? (
                     <span className="text-xs px-2 py-1 rounded-full bg-green-100 text-green-600">Available</span>
                   ) : (
                     <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600">Out of Stock</span>
                   )}
-                 
                 </div>
-                 <button
-                 onClick={()=>sendData(item)}
-                 className='bg-black text-white px- py-2 mb-2 rounded-2xl font-bold '>Add to Cart</button>
+                
+                {/* Animated Button */}
+                <div className="mt-auto md:w-[70%] mx-auto">
+                  <ButtonAnimation 
+                    onAddToCart={sendData}
+                    item={item}
+                    disabled={!item.available}
+                  />
+                </div>
               </div>
             </div>
           ))
         )}
+      </div>
+      <div>
+        
       </div>
     </div>
   );

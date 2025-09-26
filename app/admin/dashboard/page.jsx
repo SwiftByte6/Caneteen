@@ -39,7 +39,7 @@ export default function AdminDashboard() {
       try {
         // Get current user
         const { data: { user }, error: userError } = await supabase.auth.getUser()
-        
+
         if (userError || !user) {
           router.push('/')
           return
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-orange-50 p-6">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
           <div className="flex items-center justify-between">
@@ -165,7 +165,11 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
+        <div>
+         
+         
 
+        </div>
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-xl p-6 shadow-sm border border-orange-100">
@@ -241,12 +245,12 @@ export default function AdminDashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
+
           {/* Recent Orders */}
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-gray-900">Recent Orders</h3>
-              <button 
+              <button
                 onClick={() => router.push('/admin/live_orders')}
                 className="text-orange-600 hover:text-orange-700 text-sm font-medium flex items-center"
               >
@@ -268,11 +272,10 @@ export default function AdminDashboard() {
                   </div>
                   <div className="text-right">
                     <p className="font-semibold text-gray-900">{formatCurrency(order.total)}</p>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      order.status === 'completed' ? 'bg-green-100 text-green-800' :
-                      order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-blue-100 text-blue-800'
-                    }`}>
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${order.status === 'completed' ? 'bg-green-100 text-green-800' :
+                        order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-blue-100 text-blue-800'
+                      }`}>
                       {order.status}
                     </span>
                   </div>
@@ -285,7 +288,7 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-2xl p-6 shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-gray-900">Popular Items</h3>
-              <button 
+              <button
                 onClick={() => router.push('/admin/analytics')}
                 className="text-orange-600 hover:text-orange-700 text-sm font-medium flex items-center"
               >

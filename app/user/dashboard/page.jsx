@@ -14,6 +14,7 @@ import {
   Star,
   ChefHat
 } from 'lucide-react'
+import ButtonAnimation from '@/components/ButtonAnimation'
 
 export default function UserDashboard() {
   const router = useRouter()
@@ -259,6 +260,7 @@ export default function UserDashboard() {
           </div>
         )}
       </div>
+      <ButtonAnimation/>
     </div>
   )
 }
