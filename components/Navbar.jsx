@@ -33,6 +33,9 @@ export default function Navbar() {
           <Link href="/user/history" className="hover:text-gray-200">
             History
           </Link>
+          <Link href="/user/rewards" className="hover:text-gray-200">
+            Rewards
+          </Link>
         </nav>
 
         {/* Right: Icons */}

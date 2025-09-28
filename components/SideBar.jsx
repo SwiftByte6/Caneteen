@@ -6,17 +6,49 @@ import { FaShoppingCart } from "react-icons/fa";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
 import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabaseClient';
 
 const SideBar = () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(true); // toggle state for mobile
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const dashBoardItems = [
         { Icon: BsFillFileBarGraphFill, name: "Dashboard", route: "/admin/dashboard" },
         { Icon: FaShoppingCart, name: "Food Orders", route: "/admin/live_orders" },
         { Icon: BiSolidFoodMenu, name: "Manage Menu", route: "/admin/adminmenu" },
+        { Icon: BiSolidFoodMenu, name: "Reward Rules", route: "/admin/rewards" },
     ];
 
+
+    const handleLogout = async () => {
+        try {
+            setIsLoggingOut(true);
+            
+            const { error } = await supabase.auth.signOut();
+            
+            if (error) {
+                console.error('Logout error:', error);
+                alert(`Logout failed: ${error.message}`);
+                return;
+            }
+            
+            // Successfully logged out
+            console.log('User logged out successfully');
+            
+            // Clear any local storage/session data if needed
+            localStorage.clear();
+            
+            // Redirect to login page
+            router.push('/');
+            
+        } catch (error) {
+            console.error('Unexpected logout error:', error);
+            alert('An unexpected error occurred during logout. Please try again.');
+        } finally {
+            setIsLoggingOut(false);
+        }
+    }
     return (
         <>
             {/* Mobile toggle button */}
@@ -60,6 +92,17 @@ const SideBar = () => {
                         <li className='hover:text-orange-700 cursor-pointer'>Account</li>
                         <li className='hover:text-orange-700 cursor-pointer'>Help</li>
                     </ul>
+                </div>
+                <div>
+                    <button 
+                        onClick={handleLogout} 
+                        disabled={isLoggingOut}
+                        className={`hover:bg-red-300 bg-red-500/60 text-white mt-10 border-red-600 border px-4 py-2 rounded-2xl transition-colors ${
+                            isLoggingOut ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                        }`}
+                    >
+                        {isLoggingOut ? 'Logging out...' : 'Logout'}
+                    </button>
                 </div>
             </aside>
         </>
