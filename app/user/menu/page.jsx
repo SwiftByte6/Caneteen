@@ -8,7 +8,7 @@ import { addCart } from '@/redux/slice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import ButtonAnimation from '@/components/ButtonAnimation';
-
+import Image from 'next/image';
 
 const Page = () => {
   const [data, setData] = useState([]);
@@ -18,14 +18,14 @@ const Page = () => {
   const [sortOption, setSortOption] = useState('');
   const [availableOnly, setAvailableOnly] = useState(false);
 
-  const dispatch =useDispatch()
+  const dispatch = useDispatch()
 
-  const sendData=(data)=>{
+  const sendData = (data) => {
     dispatch(addCart(data))
     console.log(cartData)
   }
 
-  const cartData=useSelector((state)=>state.cart)
+  const cartData = useSelector((state) => state.cart)
   // Fetch all items
   useEffect(() => {
     (async () => {
@@ -153,40 +153,52 @@ const Page = () => {
       </div>
 
       {/* Menu Items */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 p-4 mt-10">
         {displayedData.length === 0 ? (
           <div className="col-span-full text-center text-gray-500 text-lg">
             No item found
           </div>
         ) : (
           displayedData.map((item, i) => (
-            <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition flex flex-col">
+            <div
+              key={i}
+              className="flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition hover:shadow-lg"
+            >
               {/* Image */}
-              <div className="h-40 bg-gray-200 flex items-center justify-center">
-                <span className="text-gray-500">No Image</span>
+              <div className="relative h-[350px] bg-gray-200 group overflow-hidden">
+                <Image
+                  src={item.image_url}
+                  alt={item.name || 'Food item'} // Improved accessibility
+                  fill
+                  className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
+                />
               </div>
 
               {/* Content */}
-              <div className="p-4 flex flex-col flex-grow">
+              <div className="flex flex-col flex-grow p-4">
                 <div className="flex-grow">
                   <h2 className="text-lg font-semibold text-gray-800">{item.name}</h2>
-                  <p className="text-sm text-gray-500 line-clamp-2">{item.description}</p>
-                  <p className="text-sm text-gray-400 mt-1">Category: {item.category}</p>
+                  <p className="mt-1 text-sm text-gray-500 line-clamp-2">{item.description}</p>
+                  <p className="mt-1 text-sm text-gray-400">Category: {item.category}</p>
                   <p className="mt-2 font-bold text-green-600">₹{item.price}</p>
                 </div>
 
                 {/* Availability */}
-                <div className="mt-3 mb-3">
+                <div className="my-3">
                   {item.available ? (
-                    <span className="text-xs px-2 py-1 rounded-full bg-green-100 text-green-600">Available</span>
+                    <span className="rounded-full bg-green-100 px-2 py-1 text-xs text-green-600">
+                      Available
+                    </span>
                   ) : (
-                    <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600">Out of Stock</span>
+                    <span className="rounded-full bg-red-100 px-2 py-1 text-xs text-red-600">
+                      Out of Stock
+                    </span>
                   )}
                 </div>
-                
-                {/* Animated Button */}
-                <div className="mt-auto md:w-[70%] mx-auto">
-                  <ButtonAnimation 
+
+                {/* Animated Add to Cart Button */}
+                <div className="mt-auto mx-auto md:w-[70%]">
+                  <ButtonAnimation
                     onAddToCart={sendData}
                     item={item}
                     disabled={!item.available}
@@ -194,11 +206,12 @@ const Page = () => {
                 </div>
               </div>
             </div>
+
           ))
         )}
       </div>
       <div>
-        
+
       </div>
     </div>
   );

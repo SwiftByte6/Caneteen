@@ -2,6 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/components/StoreProvider"; // adjust path if needed
 import { Toaster } from 'react-hot-toast';
+import Chatbot from "@/components/Chatbot";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +21,13 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {/* Wrap the app content with StoreProvider */}
         <StoreProvider>
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <Chatbot/>
           <Toaster 
             position="top-right"
             toastOptions={{

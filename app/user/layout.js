@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function UserLayout({ children }) {
   return (
-      <main className="flex-1 p-8">
+      <main className="flex-1 ">
         <Navbar/>
         {children}
       </main>
