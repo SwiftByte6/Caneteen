@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
           </div>
           <Chatbot/>
           <Toaster 
-            position="top-right"
+            position="top-right bg-red-100"
             toastOptions={{
               duration: 3000,
               style: {
